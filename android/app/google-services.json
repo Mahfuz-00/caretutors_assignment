@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "100415242085",
+    "project_id": "note-curetutors",
+    "storage_bucket": "note-curetutors.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100415242085:android:2c262ddfec0a187b572b8c",
+        "android_client_info": {
+          "package_name": "com.mahfuz.note_curetutors"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUX9jevWvol_7kTXzpUvJdb6pCUqcwZ1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
