@@ -72,6 +72,15 @@ dev_dependencies:
   # Generators for Riverpod & GoRouter
   riverpod_generator: ^2.4.0
   build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.14.4
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app-icon.png"
+  adaptive_icon_background: "#FFFFFF" # Or an image path
+  adaptive_icon_foreground: "assets/images/app-icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
