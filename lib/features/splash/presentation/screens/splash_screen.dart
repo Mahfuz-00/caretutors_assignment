@@ -26,8 +26,11 @@ class SplashScreen extends HookConsumerWidget {
       animationController.forward();
 
       Future.delayed(const Duration(seconds: 2), () {
-        ref.read(splashFinishedProvider.notifier).state = true;
+        if (context.mounted) {
+          ref.read(splashFinishedProvider.notifier).state = true;
+        }
       });
+
       return null;
     }, []);
 
