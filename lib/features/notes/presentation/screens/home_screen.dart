@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/service/background_wrapper.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 import '../providers/notes_provider.dart';
 import '../widgets/note_card.dart';
 import '../../../../core/di/providers.dart';
@@ -68,7 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: TextButton.icon(
-              onPressed: () => ref.read(authRepositoryProvider).signOut(),
+              onPressed: () => ref.read(authControllerProvider.notifier).logout(),
               icon: const Icon(Icons.logout_rounded, color: Colors.redAccent, size: 18),
               label: const Text("Log Out", style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
             ),

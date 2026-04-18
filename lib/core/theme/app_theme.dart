@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Brand Colors
-  static const Color primaryGreen = Color(0xFF006D39); // Deep Emerald
-  static const Color secondaryBlue = Color(0xFF1A1C2E); // Midnight Navy
+  static const Color primaryGreen = Color(0xFF006D39);
+  static const Color secondaryBlue = Color(0xFF1A1C2E);
   static const Color surfaceLight = Color(0xFFF8F9FE);
 
   static ThemeData get lightTheme {
@@ -20,7 +19,7 @@ class AppTheme {
         background: surfaceLight,
         error: Colors.redAccent,
       ),
-      textTheme: GoogleFonts.plusJakartaSansTextTheme(), // More modern than Inter
+      textTheme: GoogleFonts.plusJakartaSansTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: surfaceLight,
         elevation: 0,
@@ -56,7 +55,7 @@ class AppTheme {
       useMaterial3: true,
       scaffoldBackgroundColor: secondaryBlue,
       colorScheme: ColorScheme.dark(
-        primary: const Color(0xFF45D08E), // Vibrant Mint for Dark Mode
+        primary: const Color(0xFF45D08E),
         onPrimary: secondaryBlue,
         secondary: const Color(0xFF8BB7FF),
         surface: const Color(0xFF25273D),

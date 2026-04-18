@@ -10,8 +10,8 @@ import '../../features/notes/presentation/screens/add_note_screen.dart';
 import '../../features/notes/presentation/screens/note_details_screen.dart';
 import '../../features/splash/presentation/providers/splash_provider.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../di/providers.dart';
 
-// This provider tracks if the splash animation/timer is actually done
 final splashFinishedProvider = StateProvider<bool>((ref) => false);
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -21,12 +21,10 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/splash',
     redirect: (context, state) {
-      // 1. If splash isn't finished yet, STAY ON SPLASH
       if (!isSplashFinished) {
         return '/splash';
       }
 
-      // 2. Once splash is done, handle Auth logic
       final user = authState.valueOrNull;
       final bool isLoggedIn = user != null;
 
@@ -35,10 +33,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       final bool isSplashing = state.matchedLocation == '/splash';
 
       if (isLoggedIn) {
-        // Logged in: Go home if on auth/splash pages
         if (isAuthPath || isSplashing) return '/';
       } else {
-        // Not logged in: Go login if on home/splash pages
         if (!isAuthPath) return '/login';
       }
 
@@ -69,7 +65,6 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/note-details',
             builder: (context, state) {
-              // Retrieve the note object passed via the 'extra' parameter
               final note = state.extra as NoteEntity;
               return NoteDetailsScreen(note: note);
             },
