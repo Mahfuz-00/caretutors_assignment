@@ -9,10 +9,13 @@ class NoteTitleField extends StatelessWidget {
     return TextField(
       controller: controller,
       autofocus: true,
-      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-      decoration: const InputDecoration(
+      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black54),
+      decoration: InputDecoration(
         hintText: "Title",
-        border: InputBorder.none,
+        hintStyle: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black54),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
+        ),
       ),
     );
   }
@@ -27,10 +30,14 @@ class NoteDescriptionField extends StatelessWidget {
     return TextField(
       controller: controller,
       maxLines: null,
-      style: const TextStyle(fontSize: 18),
-      decoration: const InputDecoration(
+      style: const TextStyle(fontSize: 18, color: Colors.black54),
+      decoration: InputDecoration(
         hintText: "Description",
-        border: InputBorder.none,
+        hintStyle: const TextStyle(fontSize: 18, color: Colors.black54),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 2),
+        ),
       ),
     );
   }
