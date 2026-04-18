@@ -63,12 +63,24 @@ final paginatedNotesProvider = StateNotifierProvider<NotesListNotifier, NotesSta
 class NotesListNotifier extends StateNotifier<NotesState> {
   final Ref _ref;
   NotesListNotifier(this._ref) : super(NotesState(notes: [], isLoading: true)) {
+    _listenToAuthChanges();
     fetchInitial();
+  }
+
+  void _listenToAuthChanges() {
+    _ref.listen(authStateProvider, (previous, next) {
+      if (previous?.value?.id != next?.value?.id) {
+        clearAndRefresh();
+      }
+    });
   }
 
   Future<void> fetchInitial() async {
     final user = _ref.read(authStateProvider).value;
-    if (user == null) return;
+    if (user == null) {
+      state = state.copyWith(notes: [], isLoading: false);
+      return;
+    }
 
     try {
       final snapshot = await _ref.read(getNotesPaginatedUseCaseProvider).execute(user.id);
@@ -83,6 +95,11 @@ class NotesListNotifier extends StateNotifier<NotesState> {
     } catch (e) {
       state = state.copyWith(isLoading: false);
     }
+  }
+
+  void clearAndRefresh() {
+    state = NotesState(notes: [], isLoading: true);
+    fetchInitial();
   }
 
   Future<void> fetchMore() async {
