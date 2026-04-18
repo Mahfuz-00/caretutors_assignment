@@ -10,7 +10,6 @@ import 'core/theme/app_theme.dart';
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
   print("Handling a background message: ${message.messageId}");
 }
 
@@ -21,7 +20,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Initialize your specific Enterprise DB
   final firestore = FirebaseFirestore.instanceFor(
     app: Firebase.app(),
     databaseId: 'note-curetutors',
@@ -29,15 +27,8 @@ void main() async {
 
   debugPrint('Connected to database: ${firestore.databaseId}');
 
-  // --- ONE-TIME MIGRATION ---
-  // This will scan your existing notes and add the 'titleLowerCase' field.
-  // You can remove this block once your search is working.
-  await _runMigration(firestore);
-
-  // Set the background handler
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // Initialize FCM Service
   final notificationService = NotificationService();
   await notificationService.initialize();
 
@@ -46,35 +37,6 @@ void main() async {
       child: MyApp(),
     ),
   );
-}
-
-/// Loops through existing notes and adds titleLowerCase if missing
-Future<void> _runMigration(FirebaseFirestore firestore) async {
-  try {
-    final snapshot = await firestore.collection('notes').get();
-
-    final WriteBatch batch = firestore.batch();
-    int count = 0;
-
-    for (var doc in snapshot.docs) {
-      final data = doc.data();
-      // If the field is missing, we add it to the batch update
-      if (!data.containsKey('titleLowerCase')) {
-        final String title = data['title'] ?? "";
-        batch.update(doc.reference, {'titleLowerCase': title.toLowerCase()});
-        count++;
-      }
-    }
-
-    if (count > 0) {
-      await batch.commit();
-      debugPrint('MIGRATION SUCCESS: Updated $count existing notes.');
-    } else {
-      debugPrint('MIGRATION: No documents needed updating.');
-    }
-  } catch (e) {
-    debugPrint('MIGRATION FAILED: $e');
-  }
 }
 
 class MyApp extends ConsumerWidget {
