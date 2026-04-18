@@ -30,7 +30,7 @@ class LoginScreen extends HookConsumerWidget {
     );
 
     void handleLogin() {
-      wasSubmitted.value = true; // Now the fields will "listen" to inputs
+      wasSubmitted.value = true;
       if (formKey.currentState?.validate() ?? false) {
         ref.read(authControllerProvider.notifier).login(
           emailController.text.trim(),

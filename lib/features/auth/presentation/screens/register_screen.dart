@@ -22,6 +22,18 @@ class RegisterScreen extends HookConsumerWidget {
 
     ref.listen<AsyncValue<void>>(authControllerProvider, (previous, next) {
       next.whenOrNull(
+        data: (_) {
+          if (previous is AsyncLoading) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Account created! Please login."),
+                backgroundColor: Colors.green,
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+            context.go('/login');
+          }
+        },
         error: (err, _) {
           if (!err.toString().contains('email-already-in-use')) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -34,9 +46,6 @@ class RegisterScreen extends HookConsumerWidget {
               ),
             );
           }
-        },
-        data: (_) {
-          if (previous is AsyncLoading) context.go('/login');
         },
       );
     });
